@@ -2,9 +2,9 @@
 //Import PHPMailer classes into the global namespace
 
 //These must be at the top of your script, not inside a function
-$n=$_GET["name"];
-$e=$_GET["email"];
-$m=$_GET["message"];
+$n=$_POST["name"];
+$e=$_POST["email"];
+$m=$_POST["message"];
 //require 'vendor/autoload.php';
 require "mailer/autoload.php";
 
@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\SMTP;
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
-if(isset($_GET["send"])){
+if(isset($_POST["send"])){
 
 
     //Server settings
