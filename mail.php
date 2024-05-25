@@ -27,8 +27,8 @@ if(isset($_POST["send"])){
    $mail->Host       = "smtp.elasticemail.com";                                 //Set the SMTP server to send through
         $mail->SMTPSecure = "none";            //Enable implicit TLS encryption
    $mail->Port       = 2525;                                 //Enable SMTP authentication
-    $mail->Username   = "nazek@elasticmail.com";                           //SMTP username
-   $mail->Password   = 'D3AFAC5BED1E93674A6C795385A10D6274D8';                        //SMTP password
+    $mail->Username   = "";                           //SMTP username
+   $mail->Password   = '';                        //SMTP password
                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
    $mail->setFrom($e,$n);
    
