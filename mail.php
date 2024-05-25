@@ -1,36 +1,64 @@
+
+
+
+
+
+
+
+
+
+
+
 <?php
+//Import PHPMailer classes into the global namespace
 
-    $to = "naz889888@gmail.com";
-    $from = $_REQUEST['email'];
-    $name = $_REQUEST['name'];
+//These must be at the top of your script, not inside a function
+$n=$_POST["name"];
+$e=$_POST["email"];
+$m=$_POST["message"];
+//require 'vendor/autoload.php';
+require 'mailer/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+//Load Composer's autoloader
+
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+if(isset($_POST["send"])){
+
+
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();  
+    $mail->SMTPAuth   = True;                                           //Send using SMTP
+   $mail->Host       = "smtp.elasticemail.com";                                 //Set the SMTP server to send through
+        $mail->SMTPSecure = "none";            //Enable implicit TLS encryption
+   $mail->Port       = 2525;                                 //Enable SMTP authentication
+    $mail->Username   = "nazek@elasticmail.com";                           //SMTP username
+   $mail->Password   = 'D3AFAC5BED1E93674A6C795385A10D6274D8';                        //SMTP password
+                                   //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+   $mail->setFrom($e,$n);
    
-    $cmessage = $_REQUEST['message'];
+   $mail->addAddress("naz889888@gmail.com");
+   $mail->Subject ="msage";
+   $mail->Body=$m;
 
-    $headers = "From: $from";
-	$headers = "From: " . $from . "\r\n";
-	$headers .= "Reply-To: ". $from . "\r\n";
-	$headers .= "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+   $mail->send();
+  // PHPMailer::ENCRYPTION_SMTPS;
+     //Content format
+     $mail->isHTML(true);        //Set email format to HTML
+     $mail->CharSet = "UTF-8"; 
+    
+     header("Location: index.html", true );
+echo "thank you";
 
-    $subject = "You have a message from your.";
-
-    $logo = 'img/logo.png';
-    $link = '#';
-
-	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Express Mail</title></head><body>";
-	$body .= "<table style='width: 100%;'>";
-	$body .= "<thead style='text-align: center;'><tr><td style='border:none;' colspan='2'>";
-	$body .= "<a href='{$link}'><img src='{$logo}' alt=''></a><br><br>";
-	$body .= "</td></tr></thead><tbody><tr>";
-	$body .= "<td style='border:none;'><strong>Name:</strong> {$name}</td>";
-	$body .= "<td style='border:none;'><strong>Email:</strong> {$from}</td>";
-	$body .= "</tr>";
-	
-	$body .= "<tr><td></td></tr>";
-	$body .= "<tr><td colspan='2' style='border:none;'>{$cmessage}</td></tr>";
-	$body .= "</tbody></table>";
-	$body .= "</body></html>";
-
-    $send = mail($to, $subject, $body, $headers);
+}
+else echo "wromge";
+ 
 
 ?>
+
